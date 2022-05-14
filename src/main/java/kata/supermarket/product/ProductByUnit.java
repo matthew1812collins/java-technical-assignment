@@ -5,11 +5,12 @@ import kata.supermarket.item.ItemByUnit;
 
 import java.math.BigDecimal;
 
-public class ProductByUnit {
+public class ProductByUnit extends Product {
 
     private final BigDecimal pricePerUnit;
 
-    public ProductByUnit(final BigDecimal pricePerUnit) {
+    public ProductByUnit(final BigDecimal pricePerUnit, String productCode, ProductCategory productCategory) {
+        super(productCode, productCategory);
         this.pricePerUnit = pricePerUnit;
     }
 

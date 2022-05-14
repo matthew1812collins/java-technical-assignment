@@ -4,6 +4,7 @@ import kata.supermarket.basket.Basket;
 import kata.supermarket.item.Item;
 import kata.supermarket.product.ProductByUnit;
 import kata.supermarket.product.ProductByWeight;
+import kata.supermarket.product.ProductCategory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -61,15 +62,15 @@ class BasketTest {
     }
 
     private static Item aPintOfMilk() {
-        return new ProductByUnit(new BigDecimal("0.49")).oneOf();
+        return new ProductByUnit(new BigDecimal("0.49"), "DAI-01", ProductCategory.DAIRY).oneOf();
     }
 
     private static Item aPackOfDigestives() {
-        return new ProductByUnit(new BigDecimal("1.55")).oneOf();
+        return new ProductByUnit(new BigDecimal("1.55"), "BIS-01", ProductCategory.BISCUITS).oneOf();
     }
 
     private static ProductByWeight aKiloOfAmericanSweets() {
-        return new ProductByWeight(new BigDecimal("4.99"));
+        return new ProductByWeight(new BigDecimal("4.99"), "SWE-01", ProductCategory.SWEETS);
     }
 
     private static Item twoFiftyGramsOfAmericanSweets() {
@@ -77,7 +78,7 @@ class BasketTest {
     }
 
     private static ProductByWeight aKiloOfPickAndMix() {
-        return new ProductByWeight(new BigDecimal("2.99"));
+        return new ProductByWeight(new BigDecimal("2.99"), "SWE-02", ProductCategory.SWEETS);
     }
 
     private static Item twoHundredGramsOfPickAndMix() {
