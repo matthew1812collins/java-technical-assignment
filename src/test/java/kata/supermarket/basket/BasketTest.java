@@ -1,4 +1,4 @@
-package kata.supermarket;
+package kata.supermarket.basket;
 
 import kata.supermarket.basket.Basket;
 import kata.supermarket.item.Item;

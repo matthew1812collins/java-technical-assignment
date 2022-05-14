@@ -1,4 +1,4 @@
-package kata.supermarket;
+package kata.supermarket.product;
 
 import kata.supermarket.item.Item;
 import kata.supermarket.product.ProductByWeight;
