@@ -1,5 +1,7 @@
 package kata.supermarket.basket;
 
+import kata.supermarket.discountstrategy.DiscountStrategy;
+import kata.supermarket.discountstrategy.RegularPricingStrategy;
 import kata.supermarket.item.Item;
 
 import java.math.BigDecimal;
@@ -9,11 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Basket {
-    private final List<Item> items;
-
-    public Basket() {
-        this.items = new ArrayList<>();
-    }
+    private final List<Item> items = new ArrayList<>();
+    private DiscountStrategy discountStrategy = new RegularPricingStrategy();
 
     public void add(final Item item) {
         this.items.add(item);
@@ -23,15 +22,25 @@ public class Basket {
         return Collections.unmodifiableList(items);
     }
 
+    public void setDiscountStrategy(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    DiscountStrategy discountStrategy() {
+        return discountStrategy;
+    }
+
     public BigDecimal total() {
         return new TotalCalculator().calculate();
     }
 
     private class TotalCalculator {
         private final List<Item> items;
+        private final DiscountStrategy discountStrategy;
 
         TotalCalculator() {
             this.items = items();
+            this.discountStrategy = discountStrategy();
         }
 
         private BigDecimal subtotal() {
@@ -49,7 +58,7 @@ public class Basket {
          *  which provides that functionality.
          */
         private BigDecimal discounts() {
-            return BigDecimal.ZERO;
+            return discountStrategy.calculateDiscount(items);
         }
 
         private BigDecimal calculate() {
