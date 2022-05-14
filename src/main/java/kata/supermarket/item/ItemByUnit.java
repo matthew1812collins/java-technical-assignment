@@ -1,18 +1,18 @@
 package kata.supermarket.item;
 
-import kata.supermarket.product.Product;
+import kata.supermarket.product.ProductByUnit;
 
 import java.math.BigDecimal;
 
 public class ItemByUnit implements Item {
 
-    private final Product product;
+    private final ProductByUnit productByUnit;
 
-    public ItemByUnit(final Product product) {
-        this.product = product;
+    public ItemByUnit(final ProductByUnit productByUnit) {
+        this.productByUnit = productByUnit;
     }
 
     public BigDecimal price() {
-        return product.pricePerUnit();
+        return productByUnit.pricePerUnit();
     }
 }
