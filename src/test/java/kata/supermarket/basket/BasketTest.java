@@ -1,6 +1,8 @@
 package kata.supermarket.basket;
 
-import kata.supermarket.basket.Basket;
+import kata.supermarket.discountstrategy.BuyXGetYFreeDiscountStrategy;
+import kata.supermarket.discountstrategy.CategoryDiscountStrategy;
+import kata.supermarket.discountstrategy.DiscountStrategy;
 import kata.supermarket.item.Item;
 import kata.supermarket.product.ProductByUnit;
 import kata.supermarket.product.ProductByWeight;
@@ -38,6 +40,12 @@ class BasketTest {
         );
     }
 
+    private static Arguments multipleItemsWithCategoryDiscountStrategy() {
+        return Arguments.of("multiple items priced per unit with category discount strategy",
+                new CategoryDiscountStrategy(ProductCategory.DAIRY, 50),
+                "0.49", Arrays.asList(aPintOfMilk(), aPintOfMilk()));
+    }
+
     private static Arguments aSingleItemPricedByWeight() {
         return Arguments.of("a single weighed item", "1.25", Collections.singleton(twoFiftyGramsOfAmericanSweets()));
     }
@@ -59,6 +67,29 @@ class BasketTest {
 
     private static Arguments noItems() {
         return Arguments.of("no items", "0.00", Collections.emptyList());
+    }
+
+    @DisplayName("basket provides its total value, with discount strategy, when containing...")
+    @MethodSource
+    @ParameterizedTest(name = "{0}")
+    void basketProvidesTotalValueWithDiscountStrategy(String description, DiscountStrategy discountStrategy, String expectedTotal, Iterable<Item> items) {
+        final Basket basket = new Basket();
+        basket.setDiscountStrategy(discountStrategy);
+        items.forEach(basket::add);
+        assertEquals(new BigDecimal(expectedTotal), basket.total());
+    }
+
+    static Stream<Arguments> basketProvidesTotalValueWithDiscountStrategy() {
+        return Stream.of(
+                multipleItemsWithBuyXGetYFreeDiscountStrategy(),
+                multipleItemsWithCategoryDiscountStrategy()
+        );
+    }
+
+    private static Arguments multipleItemsWithBuyXGetYFreeDiscountStrategy() {
+        return Arguments.of("multiple items priced per unit with buy x get y free discount strategy",
+                new BuyXGetYFreeDiscountStrategy("DAI-01", 1, 1),
+                "0.49", Arrays.asList(aPintOfMilk(), aPintOfMilk()));
     }
 
     private static Item aPintOfMilk() {
