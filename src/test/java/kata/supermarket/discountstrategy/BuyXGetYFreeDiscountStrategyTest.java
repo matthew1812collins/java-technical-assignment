@@ -18,15 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BuyXGetYFreeDiscountStrategyTest {
 
-    @DisplayName("discount strategy provides its total value when containing...")
+    @DisplayName("discount strategy provides its total discount when containing...")
     @MethodSource
     @ParameterizedTest(name = "{0}")
-    void discountStrategyProvidesTotalValue(String description, String expectedDiscount,
-                                              List<Item> items, DiscountStrategy discountStrategy) {
+    void discountStrategyProvidesTotalDiscount(String description, String expectedDiscount,
+                                               List<Item> items, DiscountStrategy discountStrategy) {
         assertEquals(new BigDecimal(expectedDiscount), discountStrategy.calculateDiscount(items));
     }
 
-    static Stream<Arguments> discountStrategyProvidesTotalValue() {
+    static Stream<Arguments> discountStrategyProvidesTotalDiscount() {
         return Stream.of(
                 noItems(),
                 aSingleItemWithBuy1Get1Free(),

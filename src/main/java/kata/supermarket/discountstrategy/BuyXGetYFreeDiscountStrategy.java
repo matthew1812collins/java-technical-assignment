@@ -3,6 +3,7 @@ package kata.supermarket.discountstrategy;
 import kata.supermarket.item.Item;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,6 @@ public class BuyXGetYFreeDiscountStrategy implements DiscountStrategy {
         int numberOfFreeItems = numberOfItemsToGetFree * (discountItems.size() / (numberOfItemsToBuy + numberOfItemsToGetFree));
         BigDecimal itemPrice = discountItems.get(0).getPrice();
 
-        return itemPrice.multiply(new BigDecimal(numberOfFreeItems));
+        return itemPrice.multiply(new BigDecimal(numberOfFreeItems)).setScale(2, RoundingMode.HALF_UP);
     }
 }
