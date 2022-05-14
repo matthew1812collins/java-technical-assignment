@@ -1,4 +1,4 @@
-package kata.supermarket;
+package kata.supermarket.item;
 
 import java.math.BigDecimal;
 

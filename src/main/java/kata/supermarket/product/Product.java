@@ -1,4 +1,7 @@
-package kata.supermarket;
+package kata.supermarket.product;
+
+import kata.supermarket.item.Item;
+import kata.supermarket.item.ItemByUnit;
 
 import java.math.BigDecimal;
 
@@ -10,7 +13,7 @@ public class Product {
         this.pricePerUnit = pricePerUnit;
     }
 
-    BigDecimal pricePerUnit() {
+    public BigDecimal pricePerUnit() {
         return pricePerUnit;
     }
 
